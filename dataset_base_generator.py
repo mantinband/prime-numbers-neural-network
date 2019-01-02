@@ -1,6 +1,6 @@
 from math import sqrt, log
+from sys import argv
 
-MAX_NUM = 1000000
 
 def is_prime(n):
     if n == 2:
@@ -17,13 +17,38 @@ def is_prime(n):
     return 1
 
 
-def to_different_base_representation(n, base):
+def to_different_base_representation(n):
     res = ""
-    for i in range(int(log(MAX_NUM, base))+1):
-        res = str(int((n%base)/(base-1))) + "," + res
-        n/=base
+    for i in range(int(log(max_num-min_num, base))+1):
+        res = str((n%base)/(base-1)) + "," + res
+        n = int(n/base)
     return res
 
-for i in range(2, MAX_NUM):
-    print(to_different_base_representation(i,2), end='', file=open("dataset_base_2.csv", "a"))
-    print(str(is_prime(i)), file=open("dataset_base_2.csv", "a"))
+
+def create_dataset(base, min_num, max_num):
+    print("creating dataset for base " + str(base) + ", from " + str(min_num) + " to " + str(max_num))
+    print("output will be written to: dataset_base_" + str(base) + ".csv")
+    print("number of columns representing the number: " + str(int(log(max_num, base))+1))
+    for i in range(min_num, max_num):
+        print(to_different_base_representation(i), end='', file=open("dataset_base_" + str(base) + ".csv", "a"))
+        print(str(is_prime(i)), file=open("dataset_base_" + str(base) + ".csv", "a"))
+
+
+if __name__ == "__main__":
+    if argv.__len__() != 4:
+        print("USAGE: <filename.py> <base> <minvalue> <maxvalue>")
+        exit()
+
+    if int(argv[1]) < 2:
+        print("base must be >= 2")
+        exit()
+
+    if int(argv[2]) < 2:
+        print("min value must be >= 2")
+        exit()
+
+    base = int(argv[1])
+    min_num = int(argv[2])
+    max_num = int(argv[3])
+    create_dataset(int(argv[1]), int(argv[2]), int(argv[3]))
+
