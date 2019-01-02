@@ -39,16 +39,17 @@ if __name__ == "__main__":
         print("USAGE: <filename.py> <base> <minvalue> <maxvalue>")
         exit()
 
-    if int(argv[1]) < 2:
-        print("base must be >= 2")
-        exit()
-
-    if int(argv[2]) < 2:
-        print("min value must be >= 2")
-        exit()
-
     base = int(argv[1])
     min_num = int(argv[2])
     max_num = int(argv[3])
-    create_dataset(int(argv[1]), int(argv[2]), int(argv[3]))
+
+    if base < 2:
+        print("base must be >= 2")
+        exit()
+
+    if min_num < 2:
+        print("min value must be >= 2")
+        exit()
+
+    create_dataset(base, min_num, max_num)
 
