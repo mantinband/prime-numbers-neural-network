@@ -19,7 +19,7 @@ def is_prime(n):
 
 def to_different_base_representation(n):
     res = ""
-    for i in range(int(log(max_num-min_num, base))+1):
+    for i in range(int(log(max_num, base))+1):
         res = str((n%base)/(base-1)) + "," + res
         n = int(n/base)
     return res
